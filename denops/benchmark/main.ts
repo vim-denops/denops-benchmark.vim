@@ -52,7 +52,7 @@ async function benchmark(denops: Denops, proc: (denops: Denops, data: string, n:
   const endTime = Date.now();
   const diff = endTime - startTime;
   await denops.cmd("q!")
-  const charsec = (s * n / diff).toPrecision(3);
-  const callsec = (n / diff).toPrecision(3);
+  const charsec = (s * n / diff * 1000).toPrecision(6);
+  const callsec = (n / diff * 1000).toPrecision(6);
   console.log(`${charsec} char/sec (${callsec} call/sec)`);
 }
