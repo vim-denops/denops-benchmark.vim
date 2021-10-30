@@ -3,14 +3,18 @@ if exists('g:loaded_denops_benchmark')
 endif
 let g:loaded_denops_benchmark = 1
 
-let s:started = reltime()
+let s:loaded = reltime()
 
-function! s:record() abort
-  let diff = reltimefloat(reltime(s:started))
-  echomsg printf('[denops-benchmark] Took %f seconds to wake.', diff)
+function! s:record(message) abort
+  let diff = reltimefloat(reltime(s:loaded))
+  echohl COMMENT
+  echomsg printf('[denops-benchmark] %5f: %s', diff, a:message)
+  echohl NONE
 endfunction
 
 augroup denops_benchmark_internal
   autocmd!
-  autocmd User DenopsPluginPost:denops-benchmark call s:record()
+  autocmd User DenopsReady,DenopsStarted call s:record(expand('<amatch>:t'))
+  autocmd User DenopsPluginPre:* call s:record(expand('<amatch>:t'))
+  autocmd User DenopsPluginPost:* call s:record(expand('<amatch>:t'))
 augroup END
