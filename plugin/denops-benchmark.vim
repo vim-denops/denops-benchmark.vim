@@ -14,6 +14,5 @@ augroup denops_benchmark_internal
   autocmd!
   autocmd User DenopsStarted let s:loaded = reltime()
   autocmd User DenopsReady call s:record(expand('<amatch>:t'))
-  autocmd User DenopsPluginPre:* call s:record(expand('<amatch>:t'))
-  autocmd User DenopsPluginPost:* call s:record(expand('<amatch>:t'))
+  autocmd User DenopsPlugin* call s:record(expand('<amatch>:t'))
 augroup END
