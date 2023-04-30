@@ -3,17 +3,16 @@ if exists('g:loaded_denops_benchmark')
 endif
 let g:loaded_denops_benchmark = 1
 
-function! s:record(message) abort
-  let diff = reltimefloat(reltime(s:loaded))
-  echohl COMMENT
-  echomsg printf('[denops-benchmark] %5f: %s', diff, a:message)
-  echohl NONE
+function! s:benchmark() abort
+  call denops#request('denops-benchmark', 'benchmark', [
+        \ g:denops_benchmark_size,
+        \ g:denops_benchmark_count,
+        \ g:denops_benchmark_n,
+        \])
 endfunction
 
-augroup denops_benchmark_internal
-  autocmd!
-  autocmd User DenopsStarted let s:loaded = reltime()
-  autocmd User DenopsReady call s:record(expand('<amatch>:t'))
-  autocmd User DenopsWorker* call s:record(expand('<amatch>:t'))
-  autocmd User DenopsPlugin* call s:record(expand('<amatch>:t'))
-augroup END
+command! DenopsBenchmark call s:benchmark()
+
+let g:denops_benchmark_size = get(g:, 'denops_benchmark_size', 64)
+let g:denops_benchmark_count = get(g:, 'denops_benchmark_count', 1000)
+let g:denops_benchmark_n = get(g:, 'denops_benchmark_n', 100)
