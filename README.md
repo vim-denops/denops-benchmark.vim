@@ -4,6 +4,8 @@ A [denops][denops] plugin to measure performance of calls manually.
 
 [denops]: https://github.com/vim-denops/denops.vim
 
+https://user-images.githubusercontent.com/546312/235336285-e563dbcf-7d53-43fb-93ed-28211d6f8095.mp4
+
 ## Usage
 
 Use `DenopsBenchmark` command to measure performance of `denops.call()` and
